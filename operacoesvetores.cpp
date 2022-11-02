@@ -46,6 +46,9 @@ void intersecao(int vetA[TF], int vetB[TF]){
 	}
 	printf("\n Qtdade de numeros da interseccao = %d", tl);
 }
+void uniao (int vetA, int vetB){
+	int vetC[TF]
+	}
 
 main()
 {
@@ -87,6 +90,9 @@ main()
 			break;
 		case 5:
 			intersecao(vetA, vetB);
+			break;
+		case 6:
+			uniao (vetA,vetB);
 			break;
 		}
 	}
