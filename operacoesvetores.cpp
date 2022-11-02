@@ -79,6 +79,9 @@ main()
 			printf("\n Qtdade de numeros da interseccao = %d", tl);
 			break;
 		}
+		case 6: 
+			uniao(vetA, vetB);
+			
 	}
-	printf("mudanças3");
+	
 }
