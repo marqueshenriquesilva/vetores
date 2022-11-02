@@ -80,4 +80,5 @@ main()
 			break;
 		}
 	}
+	printf("mudanças3");
 }
