@@ -1,5 +1,6 @@
 #include <stdio.h>
 #define TF 5
+#define TFU 10
 
 void leitura(int vetor[TF]){
 	// leitura de valores inseridos pelo usuario
@@ -17,8 +18,16 @@ void exibe(int vetor[TF]){
 	for (i=0; i<TF; i++)
 		printf("\nVetor[%d] = %d", i, vetor[i]);
 }
+
+void exibeU(int vetor[TFU]){
+	// exibicao de valores do vetor uniao
+	int i;
+	for (i=0; i<TFU; i++)
+		printf("\nVetor[%d] = %d", i, vetor[i]);
+}
+
 int busca(int vetor[TF], int numero){
-	// busca numero no vetor e retorna posicao i
+	// busca numero no vetor e retorna posicao
 	int posicao = -1;
 	int i;
 	for (i=0; i<TF; i++)
@@ -34,7 +43,7 @@ void intersecao(int vetA[TF], int vetB[TF]){
 	printf("\nIntersecao dos vetores A e B");
 	int numero, posicao;
 	int tl = 0;
-	for (int i = 0; i < TF; i++)
+	for (int i=0; i<TF; i++)
 	{
 		numero = vetA[i];
 		posicao = busca(vetB, numero);
@@ -44,20 +53,55 @@ void intersecao(int vetA[TF], int vetB[TF]){
 		tl++;
 		}
 	}
-	printf("\n Qtdade de numeros da interseccao = %d", tl);
+	printf("\nQtdade de numeros da interseccao = %d", tl);
 }
-void uniao (int vetA, int vetB){
-	int vetC[TF]
+
+void uniao(int vetA[TF], int vetB[TF], int vetU[TFU]){
+	// cria vetU com uniao sem repeticao de vetA e vetB e imprimi numeros
+	printf("\nUniao dos vetores A e B");
+	
+	int pular = 0;
+	
+	for (int i=0; i<TF; i++){
+		// se numero de vetA no vetU, não adiciona de novo
+		int numero = vetA[i];
+		int posicao = busca(vetU, numero);
+		if (posicao == -1) {
+			vetU[i - pular] = vetA[i];
+		}
+		else {
+			vetU[i + TF] = 0;
+			pular++;
+		}
 	}
+	
+	for (int i=0; i<TF; i++){
+		// se numero de vetB no vetU, não adiciona de novo
+		int numero = vetB[i];
+		int posicao = busca(vetU, numero);
+		if (posicao == -1) {
+			vetU[i + TF - pular] = vetB[i];
+		}
+		else {
+			vetU[i + TF] = 0;
+			pular++;
+		}
+	}
+}
 
 main()
 {
 	// declarao de variaveis
 	int opcao = 0;
-	int vetA[TF], vetB[TF], vetC[TF];
+	int vetA[TF], vetB[TF], vetC[TF], vetU[TF];
 	int tl = 0;
 	
-	// menu
+	// reseta vetU
+	for (int i=0; i<TFU; i++){
+		vetU[i] = 0;
+	}
+	
+	// menu de opcoes
 	while (opcao != 7)
 	{
 		printf("\n1 - Leitura do vetor A");
@@ -67,7 +111,7 @@ main()
 		printf("\n5 - Interseccao dos vetores - Vetor C");
 		printf("\n6 - Uniao SEM repeticao");
 		printf("\n7 - Sair");
-		printf("\nOpcao? ");
+		printf("\nSelecione opcao: ");
 		scanf("%d", &opcao);
 		
 		switch (opcao)
@@ -92,7 +136,8 @@ main()
 			intersecao(vetA, vetB);
 			break;
 		case 6:
-			uniao (vetA,vetB);
+			uniao(vetA, vetB, vetU);
+			exibeU(vetU);
 			break;
 		}
 	}
